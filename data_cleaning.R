@@ -110,23 +110,23 @@ data$Left <- ifelse(data$Left > 1, 1, ifelse(data$Left < 0, 0, data$Left))
 
 # Exclude Customer_ID from summary statistics
 
-# Find the duplicated Customer_IDs
-duplicates <- data$Customer_ID[duplicated(data$Customer_ID)]
+# # Find the duplicated Customer_IDs
+# duplicates <- data$Customer_ID[duplicated(data$Customer_ID)]
 
-# Computing the mean and the standard deviation   
-branch_stats <- data %>%
-  select(-Customer_ID) %>%  # Exclude 'Customer_ID' column
-  group_by(Branch) %>%
-  summarise(across(where(is.numeric), list(mean = mean, sd = sd), na.rm = TRUE))
+# # Computing the mean and the standard deviation   
+# branch_stats <- data %>%
+#   select(-Customer_ID) %>%  # Exclude 'Customer_ID' column
+#   group_by(Branch) %>%
+#   summarise(across(where(is.numeric), list(mean = mean, sd = sd), na.rm = TRUE))
+# 
+# # Add back Customer_ID Mean and SD separately
+# customer_id_stats <- data %>% group_by(Branch) %>% 
+#   summarise(Customer_ID_mean = mean(Customer_ID, na.rm = TRUE), 
+#             Customer_ID_sd = sd(Customer_ID, na.rm = TRUE))
 
-# Add back Customer_ID Mean and SD separately
-customer_id_stats <- data %>% group_by(Branch) %>% 
-  summarise(Customer_ID_mean = mean(Customer_ID, na.rm = TRUE), 
-            Customer_ID_sd = sd(Customer_ID, na.rm = TRUE))
-
-# Merge stats
-global_stats <- left_join(customer_id_stats, branch_stats, by = "Branch")
-print(global_stats)
+# # Merge stats
+# global_stats <- left_join(customer_id_stats, branch_stats, by = "Branch")
+# print(global_stats)
 
 # Save Cleaned Data
-# write_csv(data, "Cleaned_Data.csv")
+write_csv(data, "Cleaned_Data.csv")
